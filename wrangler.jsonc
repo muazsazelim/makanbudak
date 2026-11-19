@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Must match the Worker name in the Cloudflare dashboard.
+  "name": "makanbudak",
+  "compatibility_date": "2026-11-18",
+  // Static site: upload the files from `next build` (output: "export") as-is. No server code.
+  "assets": {
+    "directory": "./out",
+    "not_found_handling": "404-page"
+  }
+}
