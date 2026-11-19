@@ -1,0 +1,721 @@
+/* Makan Budak Studios: hand-drawn, black and white. */
+
+:root {
+  --ink: #000;
+  --paper: #fff;
+  --grid-line: #ececec;
+  --hatch: repeating-linear-gradient(-45deg, var(--ink) 0 1.5px, transparent 1.5px 12px);
+
+  /* Uneven corners make boxes look hand-drawn. */
+  --wob-a: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  --wob-b: 15px 225px 15px 255px / 255px 15px 225px 15px;
+  --wob-c: 225px 15px 255px 15px / 15px 255px 15px 225px;
+  --wob-d: 255px 25px 225px 15px / 15px 225px 25px 255px;
+  --wob-big: 40px 255px 30px 225px / 225px 30px 255px 40px;
+  --blob: 58% 42% 55% 45% / 45% 55% 42% 58%;
+
+  --container: 1200px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 28px 28px;
+  font-family: var(--font-body), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--ink);
+}
+
+img,
+svg {
+  display: block;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 3px dashed var(--ink);
+  outline-offset: 4px;
+}
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding-inline: 24px;
+}
+
+.scribble {
+  font-family: var(--font-scribble), cursive;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.section-title {
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1.05;
+  font-weight: 800;
+}
+
+.section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.text-link {
+  font-size: 19px;
+  font-weight: 600;
+  padding: 10px 0;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 3px;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 0 28px;
+  font: inherit;
+  font-size: 19px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  border-radius: var(--wob-a);
+  box-shadow: 5px 5px 0 var(--ink);
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--ink);
+}
+
+.btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.btn--primary {
+  color: var(--paper);
+  background: var(--ink);
+  border-radius: var(--wob-b);
+}
+
+.btn--small {
+  min-height: 44px;
+  padding: 0 20px;
+  font-size: 18px;
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+/* ---------- Cards ---------- */
+
+.card {
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  transition: transform 0.15s ease;
+}
+
+.card:hover {
+  transform: rotate(-1deg) translateY(-4px);
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 20px;
+}
+
+.site-header nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 28px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.site-header nav a:not(.btn) {
+  text-decoration: none;
+  padding: 10px 2px;
+}
+
+.site-header nav a:not(.btn):hover {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 56px;
+  padding-top: 56px;
+  padding-bottom: 96px;
+}
+
+.hero__text {
+  flex: 999 1 520px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.hero__kicker {
+  font-size: 32px;
+  transform: rotate(-2deg);
+  transform-origin: left;
+}
+
+.hero__title {
+  font-size: clamp(48px, 7vw, 96px);
+  line-height: 1.02;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.underlined {
+  position: relative;
+  white-space: nowrap;
+}
+
+.underlined svg {
+  position: absolute;
+  left: 0;
+  bottom: -14px;
+  width: 100%;
+  height: 22px;
+}
+
+.hero__sub {
+  max-width: 560px;
+  font-size: 21px;
+  line-height: 1.55;
+}
+
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-top: 8px;
+}
+
+.hero__art {
+  flex: 1 1 340px;
+  min-width: 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 24px 0 56px;
+}
+
+.hero__frame {
+  width: 100%;
+  max-width: 420px;
+  padding: 28px;
+  background: var(--paper);
+  border: 4px solid var(--ink);
+  border-radius: 30px 225px 25px 205px / 205px 25px 225px 30px;
+  box-shadow: 10px 10px 0 var(--ink);
+  transform: rotate(3deg);
+}
+
+.hero__frame img {
+  width: 100%;
+  height: auto;
+}
+
+.hero__note {
+  position: absolute;
+  left: -8px;
+  bottom: -4px;
+  transform: rotate(-6deg);
+}
+
+.hero__arrow {
+  position: absolute;
+  left: 150px;
+  bottom: 36px;
+  width: 96px;
+  height: 72px;
+}
+
+.hero__sparkle {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 56px;
+  height: 56px;
+}
+
+/* ---------- Marquee ---------- */
+
+/* Clips the tilted strip so it never causes sideways scrolling. */
+.marquee-wrap {
+  overflow: hidden;
+  padding-block: 24px;
+}
+
+.marquee {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 18px 0;
+  margin: 0 -20px;
+  transform: rotate(-1.2deg);
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.marquee__track {
+  display: inline-flex;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee__track span {
+  padding-right: 32px;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ---------- About ---------- */
+
+.about {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  padding-top: 120px;
+  padding-bottom: 72px;
+}
+
+.about__intro {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px 64px;
+  align-items: flex-end;
+}
+
+.about__intro > * {
+  flex: 1 1 420px;
+  min-width: 0;
+}
+
+.about__body {
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+.services {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+.service {
+  flex: 1 1 300px;
+  min-width: 0;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.service:nth-child(1) { border-radius: var(--wob-c); }
+.service:nth-child(2) { border-radius: var(--wob-b); }
+.service:nth-child(3) { border-radius: var(--wob-d); }
+
+.service h3 {
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.service p {
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+/* ---------- Work ---------- */
+
+.work {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding-block: 72px;
+}
+
+.work__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.projects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 36px;
+}
+
+.project {
+  flex: 1 1 320px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 8px 8px 0 var(--ink);
+}
+
+.project:nth-child(3n + 1) { border-radius: var(--wob-c); }
+.project:nth-child(3n + 2) { border-radius: var(--wob-b); }
+.project:nth-child(3n + 3) { border-radius: var(--wob-d); }
+
+.project__image {
+  height: 240px;
+  border-bottom: 3px solid var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--paper);
+  background-image: var(--hatch);
+}
+
+.project__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project__placeholder {
+  font-size: 26px;
+  background: var(--paper);
+  padding: 4px 14px;
+  border: 2.5px solid var(--ink);
+  border-radius: 20px 6px 18px 8px;
+}
+
+.project__body {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-grow: 1;
+}
+
+.tag {
+  align-self: flex-start;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 999px 40px 999px 60px;
+}
+
+.project h3 {
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.project p {
+  font-size: 18px;
+  line-height: 1.55;
+  flex-grow: 1;
+}
+
+/* ---------- Team ---------- */
+
+.team {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding-block: 72px;
+}
+
+.members {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+.member {
+  flex: 1 1 220px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  padding: 32px 20px;
+  border: 3px dashed var(--ink);
+  border-radius: 20px 40px 18px 36px;
+  transition: transform 0.15s ease;
+}
+
+.member:hover {
+  transform: rotate(-1deg) translateY(-4px);
+}
+
+.avatar {
+  width: 132px;
+  height: 132px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid var(--ink);
+  border-radius: var(--blob);
+  background-image: repeating-linear-gradient(45deg, var(--ink) 0 1px, transparent 1px 9px);
+  overflow: hidden;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1);
+}
+
+.avatar__blank {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.member h3 {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.member p {
+  font-size: 17px;
+}
+
+.member .scribble {
+  font-size: 22px;
+}
+
+/* ---------- Contact ---------- */
+
+.contact {
+  padding-top: 72px;
+  padding-bottom: 120px;
+}
+
+.contact__box {
+  background: var(--ink);
+  color: var(--paper);
+  padding: clamp(32px, 6vw, 72px);
+  border-radius: var(--wob-big);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 48px 64px;
+}
+
+.contact__box a {
+  color: var(--paper);
+}
+
+.contact__box :focus-visible {
+  outline-color: var(--paper);
+}
+
+.contact__info {
+  flex: 1 1 360px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact__kicker {
+  font-size: 30px;
+  transform: rotate(-2deg);
+  transform-origin: left;
+}
+
+.contact__body {
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+.contact__links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 12px;
+  font-size: 19px;
+}
+
+.contact__links > a {
+  font-weight: 600;
+  padding: 6px 0;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2.5px;
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+
+.socials a {
+  padding: 6px 0;
+  text-underline-offset: 5px;
+}
+
+.contact-form {
+  flex: 1 1 400px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 32px;
+  border-radius: var(--wob-b);
+  transform: rotate(1deg);
+}
+
+.contact-form :focus-visible {
+  outline-color: var(--ink);
+}
+
+.contact-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.contact-form input,
+.contact-form textarea {
+  font: inherit;
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 3px solid var(--ink);
+}
+
+.contact-form input {
+  min-height: 48px;
+  padding: 0 16px;
+  border-radius: 255px 12px 225px 12px / 12px 225px 12px 255px;
+}
+
+.contact-form label:nth-of-type(2) input {
+  border-radius: 12px 225px 12px 255px / 255px 12px 225px 12px;
+}
+
+.contact-form textarea {
+  padding: 12px 16px;
+  border-radius: var(--wob-c);
+  resize: vertical;
+}
+
+.contact-form .btn {
+  align-self: flex-start;
+  box-shadow: 5px 5px 0 #555;
+}
+
+.contact-form__note {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  border-top: 3px solid var(--ink);
+  background: var(--paper);
+}
+
+.site-footer .container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 32px;
+}
+
+.site-footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 16px;
+}
+
+.site-footer .scribble {
+  font-size: 24px;
+}
+
+/* ---------- Motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
