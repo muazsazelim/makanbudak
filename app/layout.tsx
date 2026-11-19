@@ -17,6 +17,7 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://makanbudak.my"),
   title: site.name,
   description: site.description,
   icons: { icon: "/logo.svg" },
