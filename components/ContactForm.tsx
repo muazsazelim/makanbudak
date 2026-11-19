@@ -36,7 +36,7 @@ export function ContactForm({ email }: { email: string }) {
       <button type="submit" className="btn btn--primary">Send it</button>
       {sent && (
         <p className="contact-form__note" role="status">
-          Your email app should open with the message ready. If it doesn&apos;t, email us at {email}.
+          Your email app should open with the message ready.
         </p>
       )}
     </form>

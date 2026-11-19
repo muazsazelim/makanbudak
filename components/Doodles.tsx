@@ -10,15 +10,6 @@ export function Squiggle({ className }: Props) {
   );
 }
 
-export function CurvyArrow({ className }: Props) {
-  return (
-    <svg aria-hidden="true" className={className} viewBox="0 0 120 90" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M8 80 C 30 70, 60 60, 92 22" />
-      <path d="M74 24 L 94 18 L 96 40" />
-    </svg>
-  );
-}
-
 export function Sparkle({ className }: Props) {
   return (
     <svg aria-hidden="true" className={className} viewBox="0 0 60 60" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinejoin="round">
@@ -75,6 +66,23 @@ export function ServiceIcon({ name }: { name: "web" | "mobile" | "design" }) {
       <path d="M38 6 L 50 18 L 22 46 L 8 49 L 11 35 Z" />
       <path d="M32 12 L 44 24" />
       <path d="M11 35 L 22 46" />
+    </svg>
+  );
+}
+
+// Threads uses the official logo (public/icons/threads.png); LinkedIn is a simplified outline.
+export function SocialIcon({ kind }: { kind: "threads" | "linkedin" }) {
+  if (kind === "threads") {
+    // eslint-disable-next-line @next/next/no-img-element
+    // Smaller than its 22px slot so it reads the same size as the LinkedIn box; margin keeps the slot 22px.
+    return <img src="/icons/threads.png" alt="" width={18} height={18} style={{ margin: 2 }} />;
+  }
+  return (
+    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 3.5h16c.3 0 .5.2.5.5v16c0 .3-.2.5-.5.5H4a.5.5 0 0 1-.5-.5V4c0-.3.2-.5.5-.5Z" />
+      <path d="M8 10.5v6" />
+      <circle cx="8" cy="7.5" r="0.6" fill="currentColor" />
+      <path d="M12 16.5v-6M12 13c0-1.6 1-2.6 2.3-2.6s2 .9 2 2.4v3.7" />
     </svg>
   );
 }

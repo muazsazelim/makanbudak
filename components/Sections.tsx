@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { about, hero, marquee, site, team, work, contact } from "@/content";
-import { ArrowRight, CurvyArrow, ServiceIcon, Sparkle, Squiggle } from "./Doodles";
+import { ArrowRight, ServiceIcon, SocialIcon, Sparkle, Squiggle } from "./Doodles";
 import { ContactForm } from "./ContactForm";
 
 export function SiteHeader() {
@@ -43,8 +43,6 @@ export function Hero() {
         <div className="hero__frame">
           <Image src="/logo.svg" alt={`${site.name} hand-drawn logo`} width={840} height={810} priority unoptimized />
         </div>
-        <p className="scribble hero__note">{hero.logoNote}</p>
-        <CurvyArrow className="hero__arrow" />
         <Sparkle className="hero__sparkle" />
       </div>
     </section>
@@ -111,14 +109,14 @@ export function Work() {
               {p.image ? (
                 <Image src={p.image} alt={`${p.name} screenshot`} width={800} height={480} />
               ) : (
-                <span className="scribble project__placeholder">screenshot goes here</span>
+                <span className="scribble project__placeholder">still cooking...</span>
               )}
             </div>
             <div className="project__body">
               <span className="tag">{p.tag}</span>
               <h3>{p.name}</h3>
               <p>{p.blurb}</p>
-              <a href={p.href} className="text-link">View project</a>
+              {p.href && <a href={p.href} className="text-link">View project</a>}
             </div>
           </article>
         ))}
@@ -136,17 +134,39 @@ export function Team() {
       </div>
       <div className="members">
         {team.members.map((m, i) => (
-          <div key={i} className="member">
+          <div key={i} className={m.photo ? "member" : "member member--empty"}>
             <div className="avatar">
               {m.photo ? (
-                <Image src={m.photo} alt={m.name} width={132} height={132} />
+                <Image src={m.photo} alt={m.name} width={132} height={132} unoptimized={m.photo.endsWith(".svg")} />
               ) : (
                 <span className="avatar__blank" aria-hidden="true">?</span>
               )}
             </div>
             <h3>{m.name}</h3>
-            <p>{m.role}</p>
-            <p className="scribble">fav food: {m.food}</p>
+            {m.role && <p>{m.role}</p>}
+            {m.socials.length > 0 && (
+              <ul className="member__socials">
+                {m.socials.map((s) => (
+                  <li key={s.href}>
+                    <a
+                      href={s.href}
+                      className="member__link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${s.label} on ${s.kind === "threads" ? "Threads" : "LinkedIn"}`}
+                    >
+                      <SocialIcon kind={s.kind} />
+                      {s.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {m.cta && (
+              <a href={m.cta.href} className="member__link member__cta">
+                {m.cta.label}
+              </a>
+            )}
           </div>
         ))}
       </div>
@@ -167,7 +187,6 @@ export function Contact() {
           </h2>
           <p className="contact__body">{contact.body}</p>
           <div className="contact__links">
-            <a href={`mailto:${site.email}`}>{site.email}</a>
             <div className="socials">
               {site.socials.map((s) => (
                 <a key={s.label} href={s.href}>{s.label}</a>
@@ -189,7 +208,6 @@ export function SiteFooter() {
           <Image src="/logo.svg" alt="" width={52} height={50} unoptimized />
           <span>© {new Date().getFullYear()} {site.name}</span>
         </div>
-        <span className="scribble">made by hand in {site.city}</span>
       </div>
     </footer>
   );
